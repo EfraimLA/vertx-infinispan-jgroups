@@ -1,10 +1,20 @@
-node {
-    checkout scm
-    stage("Test") {
-        sh "mvn clean test"
+pipeline {
+    agent {
+        docker {
+            image 'maven:3-alpine'
+            args '-v /root/.m2:/root/.m2'
+        }
     }
-    stage("Build") {
-        sh "./scripts/deploy.sh"
+    stages {
+        stage("Test") {
+            steps {
+                sh "mvn clean test"
+            }
+        }
+        stage("Deploy") {
+            steps {
+                sh "./scripts/deploy.sh"
+            }
+        }
     }
-    stage("Deploy")
 }

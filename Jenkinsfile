@@ -1,20 +1,12 @@
-pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
+node {
+    stage("Test") {
+        withMaven(){
+            sh "mvn clean test"
         }
     }
-    stages {
-        stage("Test") {
-            steps {
-                sh "mvn clean test"
-            }
-        }
-        stage("Deploy") {
-            steps {
-                sh "./scripts/deploy.sh"
-            }
+    stage("Deploy") {
+        withMaven(){
+            sh "./scripts/deploy.sh"
         }
     }
 }

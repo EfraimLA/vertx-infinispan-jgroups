@@ -1,12 +1,17 @@
-node {
-    stage("Test") {
-        withMaven(){
-            sh "mvn clean test"
-        }
+pipeline {
+    agent {
+        label 'maven'
     }
-    stage("Deploy") {
-        withMaven(){
-            sh "./scripts/deploy.sh"
+    stages {
+        stage("Test") {
+            steps {
+                sh "mvn clean test"
+            }
+        }
+        stage("Deploy") {
+            steps {
+                sh "./scripts/deploy.sh"
+            }
         }
     }
 }

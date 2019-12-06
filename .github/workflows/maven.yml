@@ -50,10 +50,10 @@ jobs:
         run: curl https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz -o oc.tar.gz
       - name: Extracting...
         run: tar xvzf oc.tar.gz
+      - name: Configuring Local PATH...
+        run: export PATH=$(pwd):$PATH
       - name: Configuring Openshift CLI
-        run: ./oc login --token=$OPENSHIFT_TOKEN --server=$OPENSHIFT_SERVER_URL
-      - name: List Files
-        run: ls
+        run: oc login --token=$OPENSHIFT_TOKEN --server=$OPENSHIFT_SERVER_URL
       - name: Configuring Project
         run: ./scripts/deploy.sh
       - name: Build with Maven

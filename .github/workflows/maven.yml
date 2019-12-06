@@ -47,5 +47,7 @@ jobs:
         run: tar xvzf oc.tar.gz
       - name: Configuring Openshift CLI
         run: ./oc login --token=$OPENSHIFT_TOKEN --server=$OPENSHIFT_SERVER_URL
+      - name: Configuring Project
+        run: ./scripts/deploy.sh
       - name: Build with Maven
         run: mvn clean fabric8:deploy

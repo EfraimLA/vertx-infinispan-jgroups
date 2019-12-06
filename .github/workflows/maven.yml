@@ -52,7 +52,7 @@ jobs:
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true clean fabric8:deploy
       - name: Fix Permissions
-        run: chmod -Rf 777 /home/runner/work/vertx-infinispan-jgroups/vertx-infinispan-jgroups/openshift.local.clusterup/etcd/member
+        run: sudo chmod -Rf 777 /home/runner/work/vertx-infinispan-jgroups/vertx-infinispan-jgroups/openshift.local.clusterup/etcd/member
 
   deploy:
     name: Deploying Project To Openshift Online

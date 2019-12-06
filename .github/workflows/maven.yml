@@ -53,7 +53,7 @@ jobs:
       - name: Configuring Project
         run: ./scripts/deploy.sh
       - name: Creating ConfigMap
-        run: echo ${{secrets.ConfigMap}} >> configmap.yml && oc create configmap config --from-file=configmap.yml
+        run: echo "${{secrets.ConfigMap}}" >> configmap.yml && oc create configmap config --from-file=configmap.yml
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true clean fabric8:deploy
       - uses: actions/cache@v1

@@ -3,6 +3,7 @@ name: vertx-infinispan-jgroups-ci
 on: push
 
 jobs:
+
   test:
     name: Running Maven Tests
 
@@ -56,5 +57,7 @@ jobs:
         run: oc login --token=$OPENSHIFT_TOKEN --server=$OPENSHIFT_SERVER_URL
       - name: Configuring Project
         run: ./scripts/deploy.sh
+      - name: Creating ConfigMap
+        run: echo ${{ConfigMap}} >> configmap.yml && oc create configmap Config --from-file=configmap.yml
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true clean fabric8:deploy

@@ -5,6 +5,7 @@ on: push
 jobs:
   test:
     name: Running Maven Tests
+
     runs-on: ubuntu-latest
 
     steps:
@@ -24,11 +25,15 @@ jobs:
 
   deploy:
     name: Deploying Project To Openshift Online
+
     runs-on: ubuntu-latest
+
     needs: test
+
     env:
       OPENSHIFT_TOKEN: ${{secrets.OpenshiftToken}}
       OPENSHIFT_SERVER_URL: ${{secrets.OpenshiftServerUrl}}
+
     steps:
       - uses: actions/checkout@v1
       - name: Set up JDK 1.8
@@ -47,6 +52,8 @@ jobs:
         run: tar xvzf oc.tar.gz
       - name: Configuring Openshift CLI
         run: ./oc login --token=$OPENSHIFT_TOKEN --server=$OPENSHIFT_SERVER_URL
+      - name: List Files
+        run: ls
       - name: Configuring Project
         run: ./scripts/deploy.sh
       - name: Build with Maven

@@ -15,14 +15,14 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Executing Maven Tests
-      run: mvn clean test
     - uses: actions/cache@v1
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
+    - name: Executing Maven Tests
+      run: mvn clean test
 
   deploy:
     name: Deploying Project To Openshift Online
@@ -41,7 +41,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Downloading OC...
         run: curl https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz -o oc.tar.gz
       - name: Extracting...
@@ -56,9 +61,3 @@ jobs:
         run: echo "${{secrets.ConfigMap}}" >> configmap.yml && oc create configmap config --from-file=configmap.yml
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true clean fabric8:deploy
-      - uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-

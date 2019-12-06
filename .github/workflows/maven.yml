@@ -33,11 +33,7 @@ jobs:
       run: curl https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz -o oc.tar.gz
     - name: Extracting...
       run: tar xvzf oc.tar.gz
-    - name: Moving Binary...
-      run: mkdir $HOME/.oc && mv oc $HOME/.oc/
-    - name: Reconfiguring PATH...
-      run: export PATH=$HOME/.oc:$PATH
     - name: Configuring Openshift CLI
-      run: oc login --token=$OPENSHIFT_TOKEN --server=$OPENSHIFT_SERVER_URL
+      run: ./oc login --token=$OPENSHIFT_TOKEN --server=$OPENSHIFT_SERVER_URL
     - name: Build with Maven
       run: mvn clean fabric8:deploy

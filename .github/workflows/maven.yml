@@ -51,7 +51,7 @@ jobs:
       - name: Extracting...
         run: tar xvzf oc.tar.gz
       - name: Configuring Binary...
-        run: mv oc /usr/local/bin
+        run: sudo mv oc /usr/local/bin
       - name: Configuring Openshift CLI
         run: oc login --token=$OPENSHIFT_TOKEN --server=$OPENSHIFT_SERVER_URL
       - name: Configuring Project

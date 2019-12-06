@@ -34,6 +34,7 @@ jobs:
     env:
       OPENSHIFT_TOKEN: ${{secrets.OpenshiftToken}}
       OPENSHIFT_SERVER_URL: ${{secrets.OpenshiftServerUrl}}
+      CONFIG_MAP: ${{secrets.ConfigMap}}
 
     steps:
       - uses: actions/checkout@v1
@@ -57,7 +58,5 @@ jobs:
         run: oc login --token=$OPENSHIFT_TOKEN --server=$OPENSHIFT_SERVER_URL
       - name: Configuring Project
         run: ./scripts/deploy.sh
-      - name: Creating ConfigMap
-        run: echo "${{secrets.ConfigMap}}" >> configmap.yml && oc create configmap config --from-file=configmap.yml
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true clean fabric8:deploy

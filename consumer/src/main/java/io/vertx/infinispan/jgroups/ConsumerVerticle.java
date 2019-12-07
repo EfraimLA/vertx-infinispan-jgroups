@@ -15,7 +15,9 @@ public class ConsumerVerticle extends AbstractVerticle {
 
         final EventBus eb = vertx.eventBus();
 
-        eb.<Integer>consumer("stats", stats -> LOGGER.info(String.format("Received stats: %s", stats)));
+        eb.<Integer>consumer("stats",
+                stats -> LOGGER.info(String.format("Received stats: %s", stats.body()))
+        );
 
         eb.<String>consumer("message",
                 message -> LOGGER.info("Received Message from channel news: " + message.body())

@@ -17,9 +17,9 @@ public class ProducerVerticle extends AbstractVerticle {
 
         final EventBus eb = vertx.eventBus();
 
-        vertx.setPeriodic(4000, l -> {
+        vertx.setPeriodic(10000, l -> {
             LOGGER.info("Sending stats...");
-            Integer stats = ThreadLocalRandom.current().nextInt(1, 10);
+            final Integer stats = ThreadLocalRandom.current().nextInt(1, 10);
             eb.send("stats", stats);
         });
 

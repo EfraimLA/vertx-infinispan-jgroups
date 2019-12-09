@@ -15,6 +15,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      CERT_PASSWORD: ${{secrets.CertPassword}}
+
     steps:
     - uses: actions/checkout@v1
     - name: Set up JDK 1.8
@@ -36,6 +39,9 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: test
+
+    env:
+      CERT_PASSWORD: ${{secrets.CertPassword}}
 
     steps:
       - uses: actions/checkout@v1
@@ -71,6 +77,7 @@ jobs:
       OPENSHIFT_TOKEN: ${{secrets.OpenshiftToken}}
       OPENSHIFT_SERVER_URL: ${{secrets.OpenshiftServerUrl}}
       CONFIG_MAP: ${{secrets.ConfigMap}}
+      CERT_PASSWORD: ${{secrets.CertPassword}}
 
     steps:
       - uses: actions/checkout@v1

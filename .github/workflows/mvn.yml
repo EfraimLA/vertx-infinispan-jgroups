@@ -12,6 +12,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      CERT_PASSWORD: ${{secrets.CertPassword}}
+
     steps:
     - uses: actions/checkout@v1
     - name: Set up JDK 1.8

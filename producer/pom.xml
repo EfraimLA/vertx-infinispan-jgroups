@@ -17,6 +17,13 @@
         <vertx.cluster.name>vertx-cluster</vertx.cluster.name>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-web</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
